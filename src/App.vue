@@ -75,6 +75,15 @@ const lastNumber = computed(() => {
  * Corregir: 10:50
  */
 
+ /**
+  * REto: mensajes de has ganado o has perdido
+  * 
+  * 1. ¿Cómo sabemos que hemos perdido? Cuando attempts es 0 Y mi ultimo intento también ha fallado
+  * 2. ¿Cómo sabemos que he ganado? Si mi último intento (lastNumber) es igual al número a adivinar, he ganado
+  * 
+  * Corregir: 9.28
+  */
+
 </script>
 
 <template>
@@ -93,7 +102,9 @@ const lastNumber = computed(() => {
           <p>Previous Guesses: <span class="guesses"> {{ previousGuesses.join("-") }}</span></p>
           <p>Last number checked: {{ lastNumber }}</p>
           <p>Guesses Remaining: <span class="lastResult">{{ attempts }}</span></p>
-          <p v-if="randomNumber > lastNumber" style="color: green">El número debe ser mayor</p>
+          <p v-if="attempts===0 && lastNumber!=randomNumber">¡Has perdido! El numero a adivinar era: {{ randomNumber }}</p>
+          <p v-else-if="randomNumber==lastNumber">¡Felicidades! Has ganado</p>
+          <p v-else-if="randomNumber > lastNumber" style="color: green">El número debe ser mayor</p>
           <p v-else style="color: red">El número debe ser menor</p>
 
         </div>
